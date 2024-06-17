@@ -11,11 +11,11 @@ export const appSlice = createSlice({
   name: "appSlice",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.count++;
+    increment: (state, action) => {
+      state.count += action.payload;
     },
-    decrement: (state) => {
-      state.count--;
+    decrement: (state, action) => {
+      state.count -= action.payload;
     },
     byNumber: (state, action) => {
       state.number = action.payload;
