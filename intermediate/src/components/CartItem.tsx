@@ -1,9 +1,7 @@
 import { MdDelete } from "react-icons/md";
 import { Button } from "./ui/button";
-import { useDispatch } from "react-redux";
 
 export default function CartItem({ data }: { data: EcomItem }) {
-  const dispatch = useDispatch();
   return (
     <div className="border rounded p-3 flex justify-between items-center w-full gap-3 bg-slate-900">
       <div className="__item_info flex gap-2">
