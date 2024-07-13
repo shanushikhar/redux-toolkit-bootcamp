@@ -1,20 +1,29 @@
 import ShopPageItem from "@/components/ShopPageItem";
-import { useEffect, useState } from "react";
+import { loading, updateProducts } from "@/redux/slices/storeSlice";
+import { RootStore } from "@/redux/store";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Shop() {
-  const [storeItems, setStoreItems] = useState<EcomItem[]>([]);
-  const [shopLoading, setShopLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const storeItems = useSelector(
+    (state: RootStore) => state.storeSlice.products
+  );
+  const shopLoading = useSelector(
+    (state: RootStore) => state.storeSlice.loading
+  );
 
   const fetchStoreItems = async () => {
-    setShopLoading(true);
+    dispatch(loading(true));
     try {
       const response = await fetch("https://api.escuelajs.co/api/v1/products");
       const responseJson = await response.json();
-      setStoreItems(responseJson);
+      dispatch(loading(false));
+      dispatch(updateProducts(responseJson));
     } catch (error) {
       console.log(error);
     } finally {
-      setShopLoading(false);
+      dispatch(loading(false));
     }
   };
 
